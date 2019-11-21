@@ -1,4 +1,4 @@
-package pl.app.liquidbasedemo.data.mysql.config;
+package pl.app.liquibasedemo.data.mysql.config;
 
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
@@ -18,7 +18,7 @@ import java.util.Map;
 
 @Configuration
 @EnableJpaRepositories(
-        basePackages = "pl.app.liquidbasedemo.data.mysql.repository",
+        basePackages = "pl.app.liquibasedemo.data.mysql.repository",
         entityManagerFactoryRef = "mysqlEntityManagerFactory",
         transactionManagerRef = "mysqlTransactionManager")
 @EnableTransactionManagement
@@ -33,16 +33,16 @@ public class MySqlConfig {
     @Value("${hibernate-mysql.format_sql}")
     private String formatSQL;
 
-    @Bean(name = "mySqlDataSource")
+    @Bean(name = "mysqlDataSource")
     @ConfigurationProperties(prefix = "mysql")
     public DataSource dataSource() {
         return DataSourceBuilder.create().build();
     }
 
     @Bean(name = "mysqlEntityManagerFactory")
-    public LocalContainerEntityManagerFactoryBean mysqlEntityManagerFactory(@Qualifier("mySqlDataSource") DataSource dataSource) {
+    public LocalContainerEntityManagerFactoryBean mysqlEntityManagerFactory(@Qualifier("mysqlDataSource") DataSource dataSource) {
         LocalContainerEntityManagerFactoryBean entityManagerFactoryBean = new LocalContainerEntityManagerFactoryBean();
-        entityManagerFactoryBean.setPackagesToScan("pl.app.liquidbasedemo.data.mysql.entity");
+        entityManagerFactoryBean.setPackagesToScan("pl.app.liquibasedemo.data.mysql.entity");
         entityManagerFactoryBean.setPersistenceUnitName("dogs");
         entityManagerFactoryBean.setDataSource(dataSource);
         entityManagerFactoryBean.setJpaVendorAdapter(new HibernateJpaVendorAdapter());

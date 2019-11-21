@@ -1,10 +1,10 @@
-package pl.app.liquidbasedemo.services;
+package pl.app.liquibasedemo.services;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import pl.app.liquidbasedemo.data.mysql.entity.Dog;
+import pl.app.liquibasedemo.data.mysql.entity.Dog;
 
 @SpringBootTest
 public class DbServiceTestSuite {

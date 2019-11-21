@@ -1,9 +1,9 @@
-package pl.app.liquidbasedemo.services;
+package pl.app.liquibasedemo.services;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import pl.app.liquidbasedemo.data.mysql.entity.Dog;
-import pl.app.liquidbasedemo.data.mysql.repository.DogRepository;
+import pl.app.liquibasedemo.data.mysql.entity.Dog;
+import pl.app.liquibasedemo.data.mysql.repository.DogRepository;
 
 @Service
 @RequiredArgsConstructor

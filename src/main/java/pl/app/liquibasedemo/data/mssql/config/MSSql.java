@@ -1,4 +1,4 @@
-package pl.app.liquidbasedemo.data.mssql.config;
+package pl.app.liquibasedemo.data.mssql.config;
 
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
@@ -18,9 +18,9 @@ import java.util.Map;
 
 @Configuration
 @EnableJpaRepositories(
-        basePackages = "pl.app.liquidbasedemo.data.mssql.repository",
-        entityManagerFactoryRef = "msSqlEntityManagerFactory",
-        transactionManagerRef = "msSqlTransactionManager"
+        basePackages = "pl.app.liquibasedemo.data.mssql.repository",
+        entityManagerFactoryRef = "mssqlEntityManagerFactory",
+        transactionManagerRef = "mssqlTransactionManager"
 )
 @EnableTransactionManagement
 public class MSSql {
@@ -34,16 +34,16 @@ public class MSSql {
     @Value("${hibernate-mssql.format_sql}")
     private String formatSQL;
 
-    @Bean(name = "msSqlDataSource")
+    @Bean(name = "mssqlDataSource")
     @ConfigurationProperties(prefix = "mssql")
     public DataSource mssqlDataSource() {
         return DataSourceBuilder.create().build();
     }
 
-    @Bean(name = "msSqlEntityManagerFactory")
-    public LocalContainerEntityManagerFactoryBean mysqlEntityManagerFactory(@Qualifier("msSqlDataSource") DataSource dataSource) {
+    @Bean(name = "mssqlEntityManagerFactory")
+    public LocalContainerEntityManagerFactoryBean mysqlEntityManagerFactory(@Qualifier("mssqlDataSource") DataSource dataSource) {
         LocalContainerEntityManagerFactoryBean entityManagerFactoryBean = new LocalContainerEntityManagerFactoryBean();
-        entityManagerFactoryBean.setPackagesToScan("pl.app.liquidbasedemo.data.mssql.entity");
+        entityManagerFactoryBean.setPackagesToScan("pl.app.liquibasedemo.data.mssql.entity");
         entityManagerFactoryBean.setPersistenceUnitName("bird");
         entityManagerFactoryBean.setDataSource(dataSource);
         entityManagerFactoryBean.setJpaVendorAdapter(new HibernateJpaVendorAdapter());
@@ -57,7 +57,7 @@ public class MSSql {
     }
 
     @Bean(name = "msSqlTransactionManager")
-    public JpaTransactionManager mysqlTransactionManager(@Qualifier("msSqlEntityManagerFactory") EntityManagerFactory entityManagerFactory) {
+    public JpaTransactionManager mysqlTransactionManager(@Qualifier("mssqlEntityManagerFactory") EntityManagerFactory entityManagerFactory) {
         return new JpaTransactionManager(entityManagerFactory);
     }
 }

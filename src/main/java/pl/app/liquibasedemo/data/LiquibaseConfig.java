@@ -1,4 +1,4 @@
-package pl.app.liquidbasedemo.data;
+package pl.app.liquibasedemo.data;
 
 import liquibase.integration.spring.SpringLiquibase;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -25,7 +25,7 @@ public class LiquibaseConfig {
     }
 
     @Bean
-    private static SpringLiquibase mysqlSpringLiquibase(@Qualifier("mySqlDataSource") DataSource dataSource, @Qualifier("mysqlLiquibaseProperties") LiquibaseProperties properties) {
+    private static SpringLiquibase mysqlSpringLiquibase(@Qualifier("mysqlDataSource") DataSource dataSource, @Qualifier("mysqlLiquibaseProperties") LiquibaseProperties properties) {
         SpringLiquibase liquibase = new SpringLiquibase();
         liquibase.setDataSource(dataSource);
         liquibase.setChangeLog(properties.getChangeLog());
@@ -34,7 +34,7 @@ public class LiquibaseConfig {
     }
 
     @Bean
-    private static SpringLiquibase mssqlSpringLiquibase(@Qualifier("msSqlDataSource") DataSource dataSource, @Qualifier("mssqlLiquibaseProperties") LiquibaseProperties properties) {
+    private static SpringLiquibase mssqlSpringLiquibase(@Qualifier("mssqlDataSource") DataSource dataSource, @Qualifier("mssqlLiquibaseProperties") LiquibaseProperties properties) {
         SpringLiquibase liquibase = new SpringLiquibase();
         liquibase.setDataSource(dataSource);
         liquibase.setChangeLog(properties.getChangeLog());

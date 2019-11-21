@@ -1,9 +1,9 @@
-package pl.app.liquidbasedemo;
+package pl.app.liquibasedemo;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import pl.app.liquidbasedemo.services.DbService;
+import pl.app.liquibasedemo.services.DbService;
 
 @SpringBootApplication
 public class LiquidbaseDemoApplication {

@@ -1,4 +1,4 @@
-package pl.app.liquidbasedemo.data.mysql.entity;
+package pl.app.liquibasedemo.data.mysql.entity;
 
 import lombok.Data;
 

@@ -1,4 +1,4 @@
-package pl.app.liquidbasedemo.data.mssql.entity;
+package pl.app.liquibasedemo.data.mssql.entity;
 
 import lombok.Data;
 
