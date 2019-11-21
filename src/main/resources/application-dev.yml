@@ -1,33 +1,41 @@
-spring:
-  liquibase:
-    enabled: true
-    change-log: classpath:/db/changelog/db.changelog.xml
-    user: michal
-    password: pass123
-    url: jdbc:mysql://127.0.0.1:3306/lb?serverTimezone=UTC
-
 mysql:
   username: michal
   password: pass123
+  jdbcUrl: jdbc:mysql://127.0.0.1:3306/lb?serverTimezone=UTC
+  driverClassName: com.mysql.cj.jdbc.Driver
+
+hibernate-mysql:
+  dialect: org.hibernate.dialect.MySQL5Dialect
+  hbm2ddl:
+    auto: update
+  ejb.naming_strategy: org.hibernate.cfg.ImprovedNamingStrategy
+  show_sql: true
+  format_sql: false
+
+liquibase-mysql:
+  enabled: true
+  change-log: classpath:/db/changelog/mysql/changelog.xml
+  user: michal
+  password: pass123
   url: jdbc:mysql://127.0.0.1:3306/lb?serverTimezone=UTC
-  driver: com.mysql.cj.jdbc.Driver
-  hibernate:
-    dialect: org.hibernate.dialect.MySQL5Dialect
-    hbm2ddl:
-      auto: update
-    ejb.naming_strategy: org.hibernate.cfg.ImprovedNamingStrategy
-    show_sql: false
-    format_sql: true
 
 mssql:
   username: user1234
   password: pass
-  driver: com.microsoft.sqlserver.jdbc.SQLServerDriver
-  url: jdbc:sqlserver://localhost;Database=testing2
-  hibernate:
+  driverClassName: com.microsoft.sqlserver.jdbc.SQLServerDriver
+  jdbcUrl: jdbc:sqlserver://localhost;Database=testing2
+
+hibernate-mssql:
     dialect: org.hibernate.dialect.SQLServer2008Dialect
     hbm2ddl:
       auto: update
     ejb.naming_strategy: org.hibernate.cfg.ImprovedNamingStrategy
     show_sql: false
     format_sql: true
+
+liquibase-mssql:
+  enabled: true
+  change-log: classpath:/db/changelog/mssql/changelog.xml
+  user: user1234
+  password: pass
+  url: jdbc:sqlserver://localhost;Database=testing2

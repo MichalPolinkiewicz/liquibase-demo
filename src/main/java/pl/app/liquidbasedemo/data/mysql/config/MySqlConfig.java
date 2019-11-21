@@ -2,8 +2,10 @@ package pl.app.liquidbasedemo.data.mysql.config;
 
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.jdbc.DataSourceBuilder;
-import org.springframework.context.annotation.*;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.orm.jpa.JpaTransactionManager;
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
@@ -22,32 +24,19 @@ import java.util.Map;
 @EnableTransactionManagement
 public class MySqlConfig {
 
-    @Value("${mysql.driver}")
-    private String driver;
-    @Value("${mysql.url}")
-    private String url;
-    @Value("${mysql.username}")
-    private String username;
-    @Value("${mysql.password}")
-    private String password;
-    @Value("${mysql.hibernate.dialect}")
+    @Value("${hibernate-mysql.dialect}")
     private String dialect;
-    @Value("${mysql.hibernate.hbm2ddl.auto}")
+    @Value("${hibernate-mysql.hbm2ddl.auto}")
     private String hbm2ddl;
-    @Value("${mysql.hibernate.show_sql}")
+    @Value("${hibernate-mysql.show_sql}")
     private String showSQL;
-    @Value("${mysql.hibernate.format_sql}")
+    @Value("${hibernate-mysql.format_sql}")
     private String formatSQL;
 
     @Bean(name = "mySqlDataSource")
+    @ConfigurationProperties(prefix = "mysql")
     public DataSource dataSource() {
-        DataSourceBuilder dataSourceBuilder = DataSourceBuilder.create();
-        dataSourceBuilder.driverClassName(driver);
-        dataSourceBuilder.url(url);
-        dataSourceBuilder.username(username);
-        dataSourceBuilder.password(password);
-
-        return dataSourceBuilder.build();
+        return DataSourceBuilder.create().build();
     }
 
     @Bean(name = "mysqlEntityManagerFactory")
@@ -57,7 +46,6 @@ public class MySqlConfig {
         entityManagerFactoryBean.setPersistenceUnitName("dogs");
         entityManagerFactoryBean.setDataSource(dataSource);
         entityManagerFactoryBean.setJpaVendorAdapter(new HibernateJpaVendorAdapter());
-
         entityManagerFactoryBean.setJpaPropertyMap(
                 Map.of("hibernate.dialect", dialect,
                         "hibernate.hbm2ddl.auto", hbm2ddl,

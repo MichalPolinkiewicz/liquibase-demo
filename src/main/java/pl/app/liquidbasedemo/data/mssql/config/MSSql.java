@@ -2,6 +2,7 @@ package pl.app.liquidbasedemo.data.mssql.config;
 
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.jdbc.DataSourceBuilder;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -24,32 +25,19 @@ import java.util.Map;
 @EnableTransactionManagement
 public class MSSql {
 
-    @Value("${mssql.driver}")
-    private String driver;
-    @Value("${mssql.url}")
-    private String url;
-    @Value("${mssql.username}")
-    private String username;
-    @Value("${mssql.password}")
-    private String password;
-    @Value("${mssql.hibernate.dialect}")
+    @Value("${hibernate-mssql.dialect}")
     private String dialect;
-    @Value("${mssql.hibernate.hbm2ddl.auto}")
+    @Value("${hibernate-mssql.hbm2ddl.auto}")
     private String hbm2ddl;
-    @Value("${mssql.hibernate.show_sql}")
+    @Value("${hibernate-mssql.show_sql}")
     private String showSQL;
-    @Value("${mssql.hibernate.format_sql}")
+    @Value("${hibernate-mssql.format_sql}")
     private String formatSQL;
 
     @Bean(name = "msSqlDataSource")
+    @ConfigurationProperties(prefix = "mssql")
     public DataSource mssqlDataSource() {
-        DataSourceBuilder dataSourceBuilder = DataSourceBuilder.create();
-        dataSourceBuilder.driverClassName(driver);
-        dataSourceBuilder.url(url);
-        dataSourceBuilder.username(username);
-        dataSourceBuilder.password(password);
-
-        return dataSourceBuilder.build();
+        return DataSourceBuilder.create().build();
     }
 
     @Bean(name = "msSqlEntityManagerFactory")
@@ -59,7 +47,6 @@ public class MSSql {
         entityManagerFactoryBean.setPersistenceUnitName("bird");
         entityManagerFactoryBean.setDataSource(dataSource);
         entityManagerFactoryBean.setJpaVendorAdapter(new HibernateJpaVendorAdapter());
-
         entityManagerFactoryBean.setJpaPropertyMap(
                 Map.of("hibernate.dialect", dialect,
                         "hibernate.hbm2ddl.auto", hbm2ddl,
